@@ -1,0 +1,70 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Leave A Review</title>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<h1 style="text-align:center"> Rate Us!</h1>
+
+<div class="dropdown">
+      <button class="dropbtn">Check out our selection!</button>
+        <div id="dropdownmenu" class="dropdown-content">
+          <a href="index.html">Home</a>
+				  <a href="products2.html">Our Products</a>
+				  <a href="ajaxFormValidation.html">Order Online</a>
+			  	<a href="review.html">Leave A Review</a>
+			  	<a href="contact.html">Contact Us</a>
+        </div>
+    </div>
+
+<form>
+	<table>
+		<thead>
+			<th><h3>Let us know what you thought of our service<h3></th>
+		</thead>
+		<tr>
+			<th>Customer Name:</th>
+			<th><input type="text" placeholder="name"
+        name="CustName" width=50></th>
+		</tr>
+    <tr>
+      <th>How was your experience with us?</th>
+      <th><label><strong> 5 (amazing)</strong>
+        <input name="rating" type="radio" value="5" checked>
+      </label><br> 
+      <label><strong> 4</strong>
+        <input name="rating" type="radio" value="4" checked>
+      </label><br>
+      <label><strong> 3</strong>
+        <input name="rating" type="radio" value="3" checked>
+      </label><br> 
+      <label><strong> 2</strong>
+        <input name="rating" type="radio" value="2" checked>
+      </label><br> 
+      <label><strong> 1 (terrible)</strong>
+        <input name="rating" type="radio" value="1" checked>
+      </label></th>  
+    </tr>
+    
+    <tr>
+      <th><label>Comments: </th>
+      <th><textarea name="comments" 
+      rows="5" cols="45">Let us know what you think...</textarea> </label></th>
+    </tr>
+	</table>
+
+
+  <p></p>
+  <button type="submit" value="submit" onclick="alert('Thank You For Your Feedback!')">Submit Review</button>
+  <button type="reset" value="reset">Clear</button>
+</form>
+<footer>
+      <p>Copyright B.O.B 2019 &copy;
+        </p>
+    </footer>
+</body>
+
+</html>

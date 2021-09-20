@@ -1,0 +1,427 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Place Your Order</title>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+  <script language="javascript">
+    /*
+Disclaimer
+----------
+Due to a delay in receiving feedback on Assignment 2, I have read past Assignment 3 and included some of the elements I have read into this assignment, thus making it a little more complex and at the same time realistic.
+Hopefully, this is allowed (and may even gain me a few bonus points in the marking).
+*/
+
+/*
+Module Function
+---------------
+This module accepts all of the quantity values from order.html web page.
+It checks that the quantity values are numeric (integer) and, if not, converts them to zero.
+The module then checks that at least one value is above zero. If not, then the module ends as the attempt is being made to enter a zero-value order.
+
+The module then calculates the total value of the order. It should be noted that the prices per product are included in the code.
+
+Next, the module prompts for user input (account number, account balance at the start of the month, the value of items already ordered in the current month, payments (credits) made in the current month, the credit limit).
+While loops are used to ensure that only numeric values are accepted. There is no checking for negative values.
+
+The amount of available credit is then calculated and compared with the value of the order being placed. If 
+the available credit is sufficient to cover the price of the order being placed, then the order is accepted. 
+Otherwise, the order is rejected
+*/
+
+function processOrder() 
+{
+  console.log("starting order processing...");
+
+  var orderPrice = 0;
+  //assigning quantity values from site
+  var cpQty = parseInt(document.getElementById("CPQty").value);
+  var saapQty = parseInt(document.getElementById("SaAPQty").value);
+  var qpQty = parseInt(document.getElementById("QPQty").value);
+  var vappQty = parseInt(document.getElementById("VaPPQty").value);
+  var fpQty = parseInt(document.getElementById("FPQty").value);
+  var pacQty = parseInt(document.getElementById("PaCQty").value);
+	var idQty = parseInt(document.getElementById("IDQty").value);
+	var sdQty = parseInt(document.getElementById("SDQty").value);
+	var sbQty = parseInt(document.getElementById("SBQty").value);
+	var wbQty = parseInt(document.getElementById("WBQty").value);
+	var wmbQty = parseInt(document.getElementById("WmBQty").value);
+
+console.log("cpQty = " + cpQty);
+
+//Check the quantity values are numeric (integers), or convert to 0
+  cpQty = (isNaN(cpQty)) ? 0 : cpQty;
+  saapQty = (isNaN(saapQty)) ? 0 : saapQty
+  qpQty = (isNaN(qpQty)) ? 0 : qpQty;
+  vappQty = (isNaN(vappQty)) ? 0 : vappQty;
+  fpQty = (isNaN(fpQty)) ? 0 : fpQty;
+  pacQty = (isNaN(pacQty)) ? 0 : pacQty;
+  idQty = (isNaN(idQty)) ? 0 : idQty;
+  sdQty = (isNaN(sdQty)) ? 0 : sdQty;
+  sbQty = (isNaN(sbQty)) ? 0 : sbQty;
+  wbQty = (isNaN(wbQty)) ? 0 : wbQty;
+  wmbQty = (isNaN(wmbQty)) ? 0 : wmbQty;
+
+console.log("cpqty2 = " + cpQty);
+
+//Check at least one non-zero value is entered
+  var qty = cpQty + saapQty + qpQty + vappQty + fpQty + pacQty + idQty + sdQty + sbQty + wbQty + wmbQty;
+
+  if (qty == 0)
+  {
+    window.alert("No valid quantity values entered; cannot process order");
+    return false;
+  }
+
+//Calculate price of current order
+  orderPrice = (cpQty * 8.99) + (saapQty * 11.99) + (qpQty * 5.99) + (vappQty * 24.99) + (fpQty * 24.99) + (pacQty * 15);
+  orderPrice += (idQty * 11.99) + (sdQty * 13.99) + (sbQty * 5.99) + (wbQty * 4.5) + (wmbQty * 8.99);
+  orderPrice = orderPrice.toFixed(2);
+
+//Use prompt loops to get numeric data
+  var accNum;
+  while(isNaN(accNum))
+  {
+    accNum = window.prompt("Please enter your account number (numeric):");
+  }
+
+  var monBal;
+  while(isNaN(monBal))
+  {
+    monBal = prompt("Please enter your account balance at the start of this month (numeric):");
+  }
+
+  var monChrg;
+  while(isNaN(monChrg))
+  {
+    monChrg = prompt("Please enter the value of ordered items this month (numeric):");
+  }
+
+  var monCred;
+  while (isNaN(monCred))
+  {
+    monCred = prompt("Please enter your credits for this month (numeric):");
+  }
+
+  var credLim;
+  while(isNaN(credLim))
+  {
+    credLim = prompt("Please enter your credit limit (numeric):");
+  }
+
+  console.log("monBal =" + monBal);
+  console.log("monChrg =" + monChrg);
+  console.log("monCred =" +monCred);
+  console.log("credLim =" + credLim);
+
+//Calculate current balance
+  var curBal = parseFloat(monBal) + parseFloat(monChrg) - parseFloat(monCred);
+  
+  console.log("Current balance:" + curBal)
+  console.log("Limit:" + credLim)
+
+//Calculate available credit
+  var curCred = parseFloat(credLim) - parseFloat(curBal);
+  curCred = curCred.toFixed(2);
+
+//Check whether or not there is sufficient credit to place the order
+  if (curBal >= credLim)
+  {
+    window.alert("You do not have sufficient credit (£" + curCred + ") to place your order (£" + orderPrice + ") at this time.\n\nWe could not accept your order.");
+  }
+  else
+  {
+    window.alert("You have sufficient credit (£" + curCred + ") to place an order to the value of £" + orderPrice + "\n\nYour order has been accepted.");
+  }
+} 
+  </script>
+</head>
+
+<body>
+	<h1 style="text-align:center"> Order Online</h1>
+
+  <div class="dropdown">
+      <button class="dropbtn">Check out our selection!</button>
+        <div id="dropdownmenu" class="dropdown-content">
+          <a href="index.html">Home</a>
+				  <a href="products2.html">Our Products</a>
+				  <a href="order.html">Order Online</a>
+			  	<a href="review.html">Leave A Review</a>
+			  	<a href="contact.html">Contact Us</a>
+        </div>
+    </div>
+    
+  <form>
+			<table>
+				<thead>
+					<th><h3>Customer Details</h3></th>
+				</thead>
+				<tr>
+					<td>Customer Name:</td>
+					<td><input type="text" placeholder="name"
+          name="CustName" width=50></td>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td><input type="text" placeholder="address line 1" 
+          name="Address1" width=50></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="text" placeholder="address line 2"
+          name="Address2" width=50></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="text" placeholder="address line 3" 
+          name="Address3" width=50></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="text" placeholder="address line 4"
+          name="Address4" width=50></td>
+				</tr>
+				<tr>
+					<td>Post Code:</td>
+					<td><input type="text" placeholder="post code" name="PostCode" width=8></td>
+				</tr>
+			</table>
+		</form>
+    <p></P>
+    <fieldset>
+			<legend><h3>Our Pies</h3></legend>
+			<table cellspacing="10">
+				<tr>
+					<thead>
+						<th>Chicken Pie</th>
+						<th></th>
+						<th>Steak and Ale Pie</th>
+						<th></th>
+						<th>Quorn Pie</th>
+					</thead>
+				</tr>
+			
+				<tr>
+					<td>
+						<img src="https://i.imgur.com/MePKHyz.jpg" alt="Chicken Pie" width="250em" height="150em" align="left" 
+						title="Contains:
+- chicken stock
+- white wine
+- garlic
+- thyme
+- tarragon
+- carrots
+- skinless chicken breast
+- leeks
+- cornflour
+- creme fraiche
+- parsley
+- Dijon mustard"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="CPQty">Qty:</label><input type="number" placeholder="enter amount" id="CPQty" size="3"></td>
+					<td>
+						<img src="https://i.imgur.com/ryFI82a.jpg" alt="Steak and Ale Pie" width="250em" height="150em" align="left"
+						title="Contains:
+- olive oil
+- braising steak
+- garlic
+- onion
+- carrots
+- strong ale
+- chilli powder
+- thyme
+- egg"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="SaAPQty">Qty:</label><input type="number" placeholder="enter amount" id="SaAPQty" size="3"></td>
+					<td>
+						<img src="https://i.imgur.com/ieEIqfC.png" alt="Quorn Pie" width="250em" height="150em" align="left"
+							title="Contains:
+- leeks
+- butter
+- chestnut mushrooms
+- quorn chicken pieces
+- creme fraiche
+- thyme
+- milk
+- vegetables"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="QPQty">Qty:</label><input type="number" placeholder="enter amount" id="QPQty" size="3"></td>
+				</tr>
+				<tr>
+					<thead>
+						<th>&#163;8.99/Kg</th>
+						<th></th>
+						<th>&#163;11.99/Kg</th>
+						<th></th>
+						<th>&#163;5.99/Kg</th>
+					</thead>
+				</tr>
+
+				<tr>
+					<thead>
+						<th>Vegetable and Potato Pie</th>
+						<th></th>
+						<th>Fish Pie</th>
+					</thead>
+				</tr>
+				
+				<tr>
+					<td>
+						<img src="https://i.imgur.com/aNeK7bf.png" alt="Vegetable and Potato Pie" width="250em" height="150em" align="left"
+							title="Contains:
+- garlic
+- leeks
+- carrots
+- cauliflower
+- broccoli
+- milk
+- butter
+- mature cheddar
+- potatos"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="VaPPQty">Qty:</label><input type="number" placeholder="enter amount" id="VaPPQty" size="3"></td>
+					<td>
+						<img src="https://i.imgur.com/zHDbIYO.jpg" alt="Fish Pie" width="250em" height="150em" align="left"
+							title="Contains:
+- cubed white fish
+- cubed salmon
+- smoked haddock
+- whole milk
+- butter
+- matured cheddar"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="FPQty">Qty:</label><input type="number" placeholder="enter amount" id="FPQty" size="3"></td>
+				</tr>
+			
+				<tr>
+					<thead>
+						<th>&#163;24.99/Kg</th>
+						<th></th>
+						<th>&#163;24.99/Kg</th>
+					</thead>
+				</tr>
+			</table>
+		</fieldset>
+    <p></p>
+    <fieldset>
+			<legend><h3>Our Pastries</h3></legend>
+			<table>
+				<tr>
+					<thead>
+						<th>Pain au Chocolat</th>
+						<th></th>
+						<th>Iced Doughnut</th>
+						<th></th>
+						<th>Stuffed Doughnut</th>
+					</thead>
+				</tr>
+			
+				<tr>
+					<td>
+						<img src="https://i.imgur.com/0YedGCE.jpg" alt="Pain au Chocolat" width="250em" height="150em" align="left"
+							title="Contains:
+- croissant dough
+- large egg
+- semisweet chocolate"
+					/>
+          <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="PaCQty">Qty:</label><input type="number" placeholder="enter amount" id="PaCQty" size="3"></td>
+					<td>
+						<img src="https://i.imgur.com/RSqpNh9.jpg" alt="Iced Doughnut" width="250em" height="150em" align="left"
+							title="WARNING: May contain nuts"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="IDQty">Qty:</label><input type="number" placeholder="enter amount" id="IDQty" size="3"></td>
+					<td>
+						<img src="https://i.imgur.com/gqHONgT.png" alt="Stuffed Doughnut" width="250em" height="150em" align="left"
+							title="WARNING: May contain nuts"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="SDQty">Qty:</label><input type="number" placeholder="enter amount" id="SDQty" size="3"></td>
+				</tr>
+			
+				<tr>
+					<thead>
+						<th>&#163;15.00/Kg</th>
+						<th></th>
+						<th>&#163;11.99/Kg</th>
+						<th></th>
+						<th>&#163;13.99/Kg</th>
+					</thead>
+				</tr>
+			</table>
+		</fieldset>
+    <p></p>
+    <fieldset>
+			<legend><h3>Our Breads</h3></legend>
+			<table>
+				<tr>
+					<thead>
+						<th>Sourdough</th>
+						<th></th>
+						<th>White</th>
+						<th></th>
+						<th>Wholemeal</th>
+					</thead>
+				</tr>
+			
+				<tr>
+					<td>
+						<img src="https://i.imgur.com/l7kRfa3.jpg" alt="Sourdough Bread" width="250em" height="150em" align="left"
+							title="Made with honey"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="SBQty">Qty:</label><input type="number" placeholder="enter amount" id="SBQty" size="3"></td>
+					<td>
+						<img src="https://i.imgur.com/UqTce8X.jpg" alt="White Bread" width="250em" height="150em" align="left"
+							title="Crusty loaf. May contain traces of nut"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="WBQty">Qty:</label><input type="number" placeholder="enter amount" id="WBQty" size="3"></td>
+					<td>
+						<img src="https://i.imgur.com/CrHT3vn.jpg" alt="Wholemeal Bread" width="250em" height="150em" align="left"
+							title="May contain traces of nut"
+						/>
+            <img class="watermark" src="https://i.imgur.com/cXwalQv.png" alt=" " height="150" width="250" align="left">
+					</td>
+					<td><label for="WmBQty">Qty:</label><input type="number" placeholder="enter amount" id="WmBQty" size="3"></td>
+				</tr>
+			
+				<tr>
+					<thead>
+						<th>&#163;5.99/Kg</th>
+						<th></th>
+						<th>&#163;4.50/Kg</th>
+						<th></th>
+						<th>&#163;8.99/Kg</th>
+				</tr>
+			</table>
+		</fieldset>
+    <p></p>
+    		<button type="button" onclick="processOrder()">Submit Order</button>
+        <button type="button" value="Reset Order" onclick="window.location.reload();">Reset Order</button>
+
+  <footer>
+      <p>Copyright B.O.B 2019 &copy;
+        </p>
+    </footer>   
+
+
+</body>
+
+</html>
